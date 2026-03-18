@@ -25,6 +25,21 @@
         .robot-panel{ background:rgba(0,0,0,0.9); border:1px solid #fff; padding:25px; margin-top:40px; font-family:'JetBrains Mono'; font-size:12px; }
         .typing{ color:var(--p); animation: blink 1s infinite; }
         @keyframes blink{ 50%{opacity:0.3;} }
+    
+    /* V1000 READABILITY & SPACING OPTIMIZATION */
+    h1, h2, h3, .node-name, .quantum-title, .logo { letter-spacing: 12px !important; }
+    p, .node-card p, .info-card p, body { line-height: 2.2 !important; }
+
+    @media (max-width: 768px) {
+        h1, .quantum-title { font-size: 2rem !important; letter-spacing: 8px !important; }
+        .container, section { padding: 30px 15px !important; }
+        .node-grid, .grid-stage { grid-template-columns: 1fr !important; }
+        .commerce-hud, .hud-label { padding: 10px !important; font-size: 8px !important; }
+    }
+
+    /* Scroll Animation Base State */
+    section, .node-card, .premium-panel { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.19, 1, 0.22, 1); }
+    .reveal-active { opacity: 1 !important; transform: translateY(0) !important; }
     </style>
 
     <meta name="description" content="High-fidelity autonomous network node providing real-time data throughput, neural logic solving, and secure blockchain ledgering.">
@@ -141,6 +156,19 @@ Your administrative governance panel has been provisioned.");
     window.addEventListener('load', () => {
         setInterval(() => SYSTEM_HEARTBEAT.syncWithOverlord(), SYSTEM_HEARTBEAT.pulseInterval);
         SYSTEM_HEARTBEAT.syncWithOverlord();
+    });
+    </script>
+<script>
+    /* V1000 VISUAL TRANSITION LOGIC */
+    const UI_OBSERVER = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('reveal-active');
+        });
+    }, { threshold: 0.1 });
+
+    window.addEventListener('load', () => {
+        document.querySelectorAll('section, .node-card, .premium-panel').forEach(el => UI_OBSERVER.observe(el));
+        console.log('👁️ V1000 UI Optimizer: Handshake Verified');
     });
     </script>
 </body>
