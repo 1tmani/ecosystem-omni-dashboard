@@ -113,5 +113,35 @@ Your administrative governance panel has been provisioned.");
         }
     };
     </script>
+<script>
+    /* V110 AUTONOMOUS HEARTBEAT & RESILIENCE */
+    const SYSTEM_HEARTBEAT = {
+        pulseInterval: 30000, // 30 seconds
+        stateSource: 'https://api.github.com/repos/1tmani/synaptic-overlord/contents/network_state.json',
+        
+        async syncWithOverlord() {
+            console.log('☳ V110: Neural Heartbeat Pulse Initiated...');
+            try {
+                const resp = await fetch(this.stateSource, {
+                    headers: { 'Accept': 'application/vnd.github.v3.raw' },
+                    cache: 'no-store'
+                });
+                if (resp.ok) {
+                    const state = await resp.json();
+                    console.log('✅ V110: Network Sync Successful. Overlord state recognized.');
+                    // Trigger UI pulse to confirm connectivity
+                    document.body.style.boxShadow = 'inset 0 0 50px rgba(0,242,255,0.1)';
+                    setTimeout(() => document.body.style.boxShadow = 'none', 1000);
+                }
+            } catch (e) {
+                console.warn('☳ V110: Heartbeat drift detected. Attempting autonomous stabilization.');
+            }
+        }
+    };
+    window.addEventListener('load', () => {
+        setInterval(() => SYSTEM_HEARTBEAT.syncWithOverlord(), SYSTEM_HEARTBEAT.pulseInterval);
+        SYSTEM_HEARTBEAT.syncWithOverlord();
+    });
+    </script>
 </body>
 </html>
