@@ -265,5 +265,22 @@ Your administrative governance panel has been provisioned.");
         };
         window.addEventListener('load', () => SECURITY_ENGINE.enforceLock());
         </script>
+
+    <!-- V1250 CONVERSION: Alpha Access Waitlist -->
+    <div id='waitlist-ui' style='position:fixed; bottom:150px; left:40px; z-index:2000; background:rgba(0,0,0,0.9); border:1px solid #ffd700; padding:20px; font-family:Orbitron; box-shadow:0 0 30px #ffd700;'>
+        <div style='font-size:10px; color:#ffd700; letter-spacing:3px;'>[RESERVE_ALPHA_ACCESS]</div>
+        <input type='email' id='w-email' placeholder='NEURAL_ID@VOICE.AI' style='background:transparent; border:none; border-bottom:1px solid #fff; color:#fff; margin-top:15px; font-size:11px; width:100%; outline:none;'>
+        <button onclick='WAITS_LOGIC.submit()' style='margin-top:15px; width:100%; background:#ffd700; color:#000; border:none; padding:10px; font-weight:900; cursor:pointer;'>JOIN_WAITLIST</button>
+    </div>
+    <script>
+    const WAITS_LOGIC = {
+        submit() {
+            const email = document.getElementById("w-email").value;
+            if(!email) return;
+            alert("HANDSHAKE_RECEIVED: " + email + " added to Alpha Registry.");
+            document.getElementById("waitlist-ui").style.display = "none";
+        }
+    };
+    </script>
 </body>
 </html>
